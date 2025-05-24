@@ -1,3 +1,6 @@
+import httpx
+import pytest
+
 from playtest2 import steps
 
 
@@ -39,3 +42,53 @@ def test_set_json_data():
     steps.set_json_data('{"key": "value"}')
 
     assert data_store.spec["kwargs"]["json"] == {"key": "value"}
+
+
+def test_get_status_code():
+    from getgauge.python import data_store
+
+    data_store.spec["response"] = httpx.Response(200)
+
+    steps.get_status_code()
+
+    assert data_store.spec["actual"] == 200
+
+
+def test_get_response_body():
+    from getgauge.python import data_store
+
+    data_store.spec["response"] = httpx.Response(201, json={"status": "ok"})
+
+    steps.get_response_body()
+
+    assert data_store.spec["response_body_json"] == {"status": "ok"}
+
+
+def test_get_jsonpath_value():
+    from getgauge.python import data_store
+
+    data_store.spec["response"] = httpx.Response(201, json={"status": "ok"})
+
+    steps.get_jsonpath_value("$.status")
+
+    assert data_store.spec["actual"] == "ok"
+
+
+def test_assert_string_value():
+    from getgauge.python import data_store
+
+    data_store.spec["actual"] = "string"
+
+    steps.assert_string_value("string")
+    with pytest.raises(AssertionError):
+        steps.assert_string_value("other string")
+
+
+def test_assert_int_value():
+    from getgauge.python import data_store
+
+    data_store.spec["actual"] = 42
+
+    steps.assert_int_value("42")
+    with pytest.raises(AssertionError):
+        steps.assert_int_value("43")
