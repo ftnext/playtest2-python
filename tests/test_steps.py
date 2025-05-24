@@ -81,9 +81,9 @@ def test_send_request(respx_mock, monkeypatch):
     assert isinstance(data_store.spec["response"], httpx.Response)
     assert data_store.spec["response"].status_code == 201
 
-    del data_store.spec["path"]
-    del data_store.spec["method"]
-    del data_store.spec["kwargs"]
+    assert "path" not in data_store.spec
+    assert "method" not in data_store.spec
+    assert "kwargs" not in data_store.spec
     del data_store.spec["response"]
 
 

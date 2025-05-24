@@ -36,6 +36,10 @@ def send_request():
     response = httpx.request(method, endpoint, **kwargs)
     data_store.spec["response"] = response
 
+    del data_store.spec["path"]
+    del data_store.spec["method"]
+    del data_store.spec["kwargs"]
+
 
 @step("レスポンスのステータスコードが")
 def get_status_code():
