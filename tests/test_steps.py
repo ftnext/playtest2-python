@@ -1,5 +1,6 @@
 import httpx
 import pytest
+import respx
 
 from playtest2 import steps
 
@@ -42,6 +43,31 @@ def test_set_json_data():
     steps.set_json_data('{"key": "value"}')
 
     assert data_store.spec["kwargs"]["json"] == {"key": "value"}
+
+
+@respx.mock
+def test_send_request(respx_mock, monkeypatch):
+    respx_mock.request(
+        "POST",
+        "http://localhost:8000/post",
+        headers__contains={"Content-Type": "application/json"},
+        json__eq={"key": "value"},
+    ).mock(return_value=httpx.Response(201))
+
+    from getgauge.python import data_store
+
+    monkeypatch.setenv("SUT_BASE_URL", "http://localhost:8000")
+    data_store.spec["path"] = "/post"
+    data_store.spec["method"] = "POST"
+    data_store.spec["kwargs"] = {
+        "headers": {"Content-Type": "application/json"},
+        "json": {"key": "value"},
+    }
+
+    steps.send_request()
+
+    assert isinstance(data_store.spec["response"], httpx.Response)
+    assert data_store.spec["response"].status_code == 201
 
 
 def test_get_status_code():

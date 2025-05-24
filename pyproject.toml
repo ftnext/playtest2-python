@@ -33,6 +33,9 @@ Source = "https://github.com/ftnext/playtest2"
 [tool.hatch.version]
 path = "src/playtest2/__about__.py"
 
+[tool.hatch.envs.hatch-test]
+extra-dependencies = ["respx"]
+
 [tool.hatch.envs.types]
 extra-dependencies = [
   "mypy>=1.0.0",

@@ -6,8 +6,6 @@ import httpx
 from getgauge.python import data_store, step
 from jsonpath_ng.ext import parse
 
-BASE_URL = os.getenv("SUT_BASE_URL")
-
 
 @step("パス<path>に")
 def set_path(path: str):
@@ -31,8 +29,9 @@ def set_json_data(json_str: str):
 
 @step("リクエストを送る")
 def send_request():
-    endpoint = urljoin(BASE_URL, data_store.spec["path"])
-    method = data_store.spec["method"].lower()
+    base_url = os.environ["SUT_BASE_URL"]
+    endpoint = urljoin(base_url, data_store.spec["path"])
+    method = data_store.spec["method"].upper()
     kwargs = data_store.spec.get("kwargs", {})
     response = httpx.request(method, endpoint, **kwargs)
     data_store.spec["response"] = response
