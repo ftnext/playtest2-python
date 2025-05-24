@@ -15,6 +15,8 @@ def test_set_path():
 
     assert data_store.spec["path"] == "/spam"
 
+    del data_store.spec["path"]
+
 
 def test_set_method():
     from getgauge.python import data_store
@@ -25,6 +27,8 @@ def test_set_method():
     steps.set_method("GET")
 
     assert data_store.spec["method"] == "GET"
+
+    del data_store.spec["method"]
 
 
 def test_set_content_type_header():
@@ -37,6 +41,8 @@ def test_set_content_type_header():
 
     assert data_store.spec["kwargs"]["headers"] == {"Content-Type": "application/json"}
 
+    del data_store.spec["kwargs"]
+
 
 def test_set_json_data():
     from getgauge.python import data_store
@@ -47,6 +53,8 @@ def test_set_json_data():
     steps.set_json_data('{"key": "value"}')
 
     assert data_store.spec["kwargs"]["json"] == {"key": "value"}
+
+    del data_store.spec["kwargs"]
 
 
 @respx.mock
@@ -73,6 +81,11 @@ def test_send_request(respx_mock, monkeypatch):
     assert isinstance(data_store.spec["response"], httpx.Response)
     assert data_store.spec["response"].status_code == 201
 
+    del data_store.spec["path"]
+    del data_store.spec["method"]
+    del data_store.spec["kwargs"]
+    del data_store.spec["response"]
+
 
 def test_get_status_code():
     from getgauge.python import data_store
@@ -82,6 +95,9 @@ def test_get_status_code():
     steps.get_status_code()
 
     assert data_store.spec["actual"] == 200
+
+    del data_store.spec["response"]
+    del data_store.spec["actual"]
 
 
 def test_get_response_body():
@@ -93,6 +109,9 @@ def test_get_response_body():
 
     assert data_store.spec["response_body_json"] == {"status": "ok"}
 
+    del data_store.spec["response"]
+    del data_store.spec["response_body_json"]
+
 
 def test_get_jsonpath_value():
     from getgauge.python import data_store
@@ -102,6 +121,9 @@ def test_get_jsonpath_value():
     steps.get_jsonpath_value("$.status")
 
     assert data_store.spec["actual"] == "ok"
+
+    del data_store.spec["response_body_json"]
+    del data_store.spec["actual"]
 
 
 def test_assert_string_value():
@@ -113,6 +135,8 @@ def test_assert_string_value():
     with pytest.raises(AssertionError):
         steps.assert_string_value("other string")
 
+    del data_store.spec["actual"]
+
 
 def test_assert_int_value():
     from getgauge.python import data_store
@@ -122,3 +146,5 @@ def test_assert_int_value():
     steps.assert_int_value("42")
     with pytest.raises(AssertionError):
         steps.assert_int_value("43")
+
+    del data_store.spec["actual"]
