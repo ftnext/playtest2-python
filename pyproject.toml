@@ -5,16 +5,17 @@ build-backend = "hatchling.build"
 [project]
 name = "playtest2"
 dynamic = ["version"]
-description = ''
+description = "Python port of uzabase/playtest2"
 readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT"
-keywords = []
+keywords = ["testing", "gauge", "gauge-python",  "automation"]
 authors = [
   { name = "ftnext", email = "takuyafjp+develop@gmail.com" },
 ]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
@@ -22,6 +23,8 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Software Development :: Testing :: Acceptance",
 ]
 dependencies = ["getgauge", "httpx", "jsonpath-ng"]
 
