@@ -87,6 +87,30 @@ def test_send_request(respx_mock, monkeypatch):
     del data_store.spec["response"]
 
 
+@respx.mock
+def test_send_request_without_kwargs(respx_mock, monkeypatch):
+    respx_mock.request(
+        "GET",
+        "http://localhost:8000/get",
+    ).mock(return_value=httpx.Response(200))
+
+    from getgauge.python import data_store
+
+    monkeypatch.setenv("SUT_BASE_URL", "http://localhost:8000")
+    data_store.spec["path"] = "/get"
+    data_store.spec["method"] = "GET"
+
+    steps.send_request()
+
+    assert isinstance(data_store.spec["response"], httpx.Response)
+    assert data_store.spec["response"].status_code == 200
+
+    assert "path" not in data_store.spec
+    assert "method" not in data_store.spec
+    assert "kwargs" not in data_store.spec
+    del data_store.spec["response"]
+
+
 def test_get_status_code():
     from getgauge.python import data_store
 

@@ -38,7 +38,8 @@ def send_request():
 
     del data_store.spec["path"]
     del data_store.spec["method"]
-    del data_store.spec["kwargs"]
+    if "kwargs" in data_store.spec:
+        del data_store.spec["kwargs"]
 
 
 @step("レスポンスのステータスコードが")
