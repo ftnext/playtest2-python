@@ -126,24 +126,42 @@ def test_get_jsonpath_value():
     del data_store.spec["actual"]
 
 
-def test_assert_string_value():
+def test_assert_string_value_pass():
     from getgauge.python import data_store
 
     data_store.spec["actual"] = "string"
 
     steps.assert_string_value("string")
+
+    assert "actual" not in data_store.spec
+
+
+def test_assert_string_value_fail():
+    from getgauge.python import data_store
+
+    data_store.spec["actual"] = "string"
+
     with pytest.raises(AssertionError):
         steps.assert_string_value("other string")
 
     del data_store.spec["actual"]
 
 
-def test_assert_int_value():
+def test_assert_int_value_pass():
     from getgauge.python import data_store
 
     data_store.spec["actual"] = 42
 
     steps.assert_int_value("42")
+
+    assert "actual" not in data_store.spec
+
+
+def test_assert_int_value_fail():
+    from getgauge.python import data_store
+
+    data_store.spec["actual"] = 42
+
     with pytest.raises(AssertionError):
         steps.assert_int_value("43")
 
