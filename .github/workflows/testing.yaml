@@ -1,0 +1,13 @@
+name: Run tests
+
+on: [push]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pypa/hatch@install
+      - name: Run tests
+        run: hatch test --randomize --all -vv --doctest-modules
