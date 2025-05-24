@@ -8,7 +8,8 @@ from playtest2 import steps
 def test_set_path():
     from getgauge.python import data_store
 
-    assert "path" not in data_store.spec
+    if "path" in data_store.spec:
+        del data_store.spec["path"]
 
     steps.set_path("/spam")
 
@@ -18,7 +19,8 @@ def test_set_path():
 def test_set_method():
     from getgauge.python import data_store
 
-    assert "method" not in data_store.spec
+    if "method" in data_store.spec:
+        del data_store.spec["method"]
 
     steps.set_method("GET")
 
@@ -28,7 +30,8 @@ def test_set_method():
 def test_set_content_type_header():
     from getgauge.python import data_store
 
-    assert "headers" not in data_store.spec.get("kwargs", {})
+    if "kwargs" in data_store.spec:
+        del data_store.spec["kwargs"]
 
     steps.set_content_type_header("application/json")
 
@@ -38,7 +41,8 @@ def test_set_content_type_header():
 def test_set_json_data():
     from getgauge.python import data_store
 
-    assert "json" not in data_store.spec.get("kwargs", {})
+    if "kwargs" in data_store.spec:
+        del data_store.spec["kwargs"]
 
     steps.set_json_data('{"key": "value"}')
 
@@ -93,7 +97,7 @@ def test_get_response_body():
 def test_get_jsonpath_value():
     from getgauge.python import data_store
 
-    data_store.spec["response"] = httpx.Response(201, json={"status": "ok"})
+    data_store.spec["response_body_json"] = {"status": "ok"}
 
     steps.get_jsonpath_value("$.status")
 
