@@ -38,10 +38,16 @@ $ source .venv/bin/activate
 
 ### Gauge Configuration
 
-python.properties
+Edit `python.properties` in `env/default/`.
 
 ```
 STEP_IMPL_DIR = /**absolute**/path/of/gauge-project/.venv/lib/python3.x/site-packages/playtest2
+```
+
+Create `playtest2.properties` in `env/default/`.
+
+```
+SUT_BASE_URL = http://127.0.0.1:8000
 ```
 
 On activating the virtual environment for Gauge, run `gauge` command in your E2E test project:
