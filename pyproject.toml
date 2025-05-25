@@ -29,9 +29,9 @@ classifiers = [
 dependencies = ["getgauge", "httpx", "jsonpath-ng"]
 
 [project.urls]
-Documentation = "https://github.com/ftnext/playtest2#readme"
-Issues = "https://github.com/ftnext/playtest2/issues"
-Source = "https://github.com/ftnext/playtest2"
+Documentation = "https://github.com/ftnext/playtest2-python#readme"
+Issues = "https://github.com/ftnext/playtest2-python/issues"
+Source = "https://github.com/ftnext/playtest2-python"
 
 [tool.hatch.version]
 path = "src/playtest2/__about__.py"
