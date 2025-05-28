@@ -168,7 +168,7 @@ def test_assert_string_value_fail():
     with pytest.raises(AssertionError):
         steps.assert_string_value("other string")
 
-    del data_store.spec["actual"]
+    assert "actual" not in data_store.spec
 
 
 def test_assert_int_value_pass():
@@ -189,4 +189,4 @@ def test_assert_int_value_fail():
     with pytest.raises(AssertionError):
         steps.assert_int_value("43")
 
-    del data_store.spec["actual"]
+    assert "actual" not in data_store.spec
