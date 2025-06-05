@@ -190,3 +190,24 @@ def test_assert_int_value_fail():
         steps.assert_int_value("43")
 
     assert "actual" not in data_store.spec
+
+
+def test_assert_true_value_pass():
+    from getgauge.python import data_store
+
+    data_store.spec["actual"] = True
+
+    steps.assert_true_value()
+
+    assert "actual" not in data_store.spec
+
+
+def test_assert_true_value_fail():
+    from getgauge.python import data_store
+
+    data_store.spec["actual"] = False
+
+    with pytest.raises(AssertionError):
+        steps.assert_true_value()
+
+    assert "actual" not in data_store.spec
