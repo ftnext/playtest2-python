@@ -26,12 +26,6 @@ def assert_string_contains(expected: str):
     assert expected in actual, f"Expected {actual!r} to contain {expected!r}"  # noqa: S101
 
 
-@step("文字列の<expected>を含んでいる")
-def assert_string_contains(expected: str):
-    actual = data_store.spec.pop("actual")
-    assert expected in actual, f"Expected {actual!r} to contain {expected!r}"  # noqa: S101
-
-
 @step("小数値の<expected>である")
 def assert_float_value(expected: str):
     actual = data_store.spec.pop("actual")
