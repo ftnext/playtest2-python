@@ -18,3 +18,47 @@ def assert_int_value(expected: str):
 def assert_true_value():
     actual = data_store.spec.pop("actual")
     assert actual is True, f"Expected True but got {actual!r}"  # noqa: S101
+
+
+@step("文字列の<expected>を含んでいる")
+def assert_string_contains(expected: str):
+    actual = data_store.spec.pop("actual")
+    assert expected in actual, f"Expected {actual!r} to contain {expected!r}"  # noqa: S101
+
+
+@step("文字列の<expected>を含んでいる")
+def assert_string_contains(expected: str):
+    actual = data_store.spec.pop("actual")
+    assert expected in actual, f"Expected {actual!r} to contain {expected!r}"  # noqa: S101
+
+
+@step("小数値の<expected>である")
+def assert_float_value(expected: str):
+    actual = data_store.spec.pop("actual")
+    expected = float(expected)
+    assert actual == expected, f"Expected {expected!r} but got {actual!r}"  # noqa: S101
+
+
+@step("整数値の<threshold>以上である")
+def assert_int_greater_equal(threshold: str):
+    actual = data_store.spec.pop("actual")
+    threshold = int(threshold)
+    assert actual >= threshold, f"Expected {actual!r} to be >= {threshold!r}"  # noqa: S101
+
+
+@step("偽である")
+def assert_false_value():
+    actual = data_store.spec.pop("actual")
+    assert actual is False, f"Expected False but got {actual!r}"  # noqa: S101
+
+
+@step("真偽値のである")
+def assert_bool_value():
+    actual = data_store.spec.pop("actual")
+    assert isinstance(actual, bool), f"Expected bool but got {type(actual).__name__}: {actual!r}"  # noqa: S101
+
+
+@step("nullである")
+def assert_null_value():
+    actual = data_store.spec.pop("actual")
+    assert actual is None, f"Expected None but got {actual!r}"  # noqa: S101
