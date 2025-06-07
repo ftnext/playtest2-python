@@ -1,8 +1,7 @@
 import httpx
-import pytest
 import respx
 
-from playtest2 import steps
+from playtest2.steps import http as http_steps
 
 
 def test_set_path():
@@ -11,7 +10,7 @@ def test_set_path():
     if "path" in data_store.spec:
         del data_store.spec["path"]
 
-    steps.set_path("/spam")
+    http_steps.set_path("/spam")
 
     assert data_store.spec["path"] == "/spam"
 
@@ -24,7 +23,7 @@ def test_set_method():
     if "method" in data_store.spec:
         del data_store.spec["method"]
 
-    steps.set_method("GET")
+    http_steps.set_method("GET")
 
     assert data_store.spec["method"] == "GET"
 
@@ -37,7 +36,7 @@ def test_set_content_type_header():
     if "kwargs" in data_store.spec:
         del data_store.spec["kwargs"]
 
-    steps.set_content_type_header("application/json")
+    http_steps.set_content_type_header("application/json")
 
     assert data_store.spec["kwargs"]["headers"] == {"Content-Type": "application/json"}
 
@@ -50,7 +49,7 @@ def test_set_json_data():
     if "kwargs" in data_store.spec:
         del data_store.spec["kwargs"]
 
-    steps.set_json_data('{"key": "value"}')
+    http_steps.set_json_data('{"key": "value"}')
 
     assert data_store.spec["kwargs"]["json"] == {"key": "value"}
 
@@ -76,7 +75,7 @@ def test_send_request(respx_mock, monkeypatch):
         "json": {"key": "value"},
     }
 
-    steps.send_request()
+    http_steps.send_request()
 
     assert isinstance(data_store.spec["response"], httpx.Response)
     assert data_store.spec["response"].status_code == 201
@@ -100,7 +99,7 @@ def test_send_request_without_kwargs(respx_mock, monkeypatch):
     data_store.spec["path"] = "/get"
     data_store.spec["method"] = "GET"
 
-    steps.send_request()
+    http_steps.send_request()
 
     assert isinstance(data_store.spec["response"], httpx.Response)
     assert data_store.spec["response"].status_code == 200
@@ -116,7 +115,7 @@ def test_get_status_code():
 
     data_store.spec["response"] = httpx.Response(200)
 
-    steps.get_status_code()
+    http_steps.get_status_code()
 
     assert data_store.spec["actual"] == 200
 
@@ -129,7 +128,7 @@ def test_get_response_body():
 
     data_store.spec["response"] = httpx.Response(201, json={"status": "ok"})
 
-    steps.get_response_body()
+    http_steps.get_response_body()
 
     assert data_store.spec["response_body_json"] == {"status": "ok"}
 
@@ -142,72 +141,9 @@ def test_get_jsonpath_value():
 
     data_store.spec["response_body_json"] = {"status": "ok"}
 
-    steps.get_jsonpath_value("$.status")
+    http_steps.get_jsonpath_value("$.status")
 
     assert data_store.spec["actual"] == "ok"
 
     del data_store.spec["response_body_json"]
     del data_store.spec["actual"]
-
-
-def test_assert_string_value_pass():
-    from getgauge.python import data_store
-
-    data_store.spec["actual"] = "string"
-
-    steps.assert_string_value("string")
-
-    assert "actual" not in data_store.spec
-
-
-def test_assert_string_value_fail():
-    from getgauge.python import data_store
-
-    data_store.spec["actual"] = "string"
-
-    with pytest.raises(AssertionError):
-        steps.assert_string_value("other string")
-
-    assert "actual" not in data_store.spec
-
-
-def test_assert_int_value_pass():
-    from getgauge.python import data_store
-
-    data_store.spec["actual"] = 42
-
-    steps.assert_int_value("42")
-
-    assert "actual" not in data_store.spec
-
-
-def test_assert_int_value_fail():
-    from getgauge.python import data_store
-
-    data_store.spec["actual"] = 42
-
-    with pytest.raises(AssertionError):
-        steps.assert_int_value("43")
-
-    assert "actual" not in data_store.spec
-
-
-def test_assert_true_value_pass():
-    from getgauge.python import data_store
-
-    data_store.spec["actual"] = True
-
-    steps.assert_true_value()
-
-    assert "actual" not in data_store.spec
-
-
-def test_assert_true_value_fail():
-    from getgauge.python import data_store
-
-    data_store.spec["actual"] = False
-
-    with pytest.raises(AssertionError):
-        steps.assert_true_value()
-
-    assert "actual" not in data_store.spec
