@@ -55,7 +55,7 @@ On activating the virtual environment for Gauge, run `gauge` command in your E2E
 
 ```console
 (.venv) $ cd /path/to/e2e/project
-(.venv) $ gauge run steps
+(.venv) $ gauge run specs
 ```
 
 ### Spec example
