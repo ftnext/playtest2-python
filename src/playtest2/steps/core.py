@@ -10,8 +10,8 @@ def assert_string_value(expected: str):
 @step("整数値の<expected>である")
 def assert_int_value(expected: str):
     actual = data_store.spec.pop("actual")
-    expected = int(expected)
-    assert actual == expected, f"Expected {expected!r} but got {actual!r}"  # noqa: S101
+    expected_int = int(expected)
+    assert actual == expected_int, f"Expected {expected_int!r} but got {actual!r}"  # noqa: S101
 
 
 @step("真である")
@@ -29,15 +29,15 @@ def assert_string_contains(expected: str):
 @step("小数値の<expected>である")
 def assert_float_value(expected: str):
     actual = data_store.spec.pop("actual")
-    expected = float(expected)
-    assert actual == expected, f"Expected {expected!r} but got {actual!r}"  # noqa: S101
+    expected_float = float(expected)
+    assert actual == expected_float, f"Expected {expected_float!r} but got {actual!r}"  # noqa: S101
 
 
 @step("整数値の<threshold>以上である")
 def assert_int_greater_equal(threshold: str):
     actual = data_store.spec.pop("actual")
-    threshold = int(threshold)
-    assert actual >= threshold, f"Expected {actual!r} to be >= {threshold!r}"  # noqa: S101
+    threshold_int = int(threshold)
+    assert actual >= threshold_int, f"Expected {actual!r} to be >= {threshold_int!r}"  # noqa: S101
 
 
 @step("偽である")
