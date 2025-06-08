@@ -33,11 +33,11 @@ def assert_float_value(expected: str):
     assert actual == expected_float, f"Expected {expected_float!r} but got {actual!r}"  # noqa: S101
 
 
-@step("整数値の<threshold>以上である")
-def assert_int_greater_equal(threshold: str):
+@step("整数値の<expected>以上である")
+def assert_int_greater_equal(expected: str):
     actual = data_store.spec.pop("actual")
-    threshold_int = int(threshold)
-    assert actual >= threshold_int, f"Expected {actual!r} to be >= {threshold_int!r}"  # noqa: S101
+    expected_int = int(expected)
+    assert actual >= expected_int, f"Expected {actual!r} to be >= {expected_int!r}"  # noqa: S101
 
 
 @step("偽である")
@@ -46,10 +46,11 @@ def assert_false_value():
     assert actual is False, f"Expected False but got {actual!r}"  # noqa: S101
 
 
-@step("真偽値のである")
-def assert_bool_value():
+@step("真偽値の<expected>である")
+def assert_bool_value(expected: str):
     actual = data_store.spec.pop("actual")
-    assert isinstance(actual, bool), f"Expected bool but got {type(actual).__name__}: {actual!r}"  # noqa: S101
+    expected_bool = expected == "True"
+    assert actual == expected_bool, f"Expected {expected_bool!r} but got {actual!r}"  # noqa: S101
 
 
 @step("nullである")

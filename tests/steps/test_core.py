@@ -165,7 +165,7 @@ def test_assert_bool_value_pass_true():
 
     data_store.spec["actual"] = True
 
-    core_steps.assert_bool_value()
+    core_steps.assert_bool_value("True")
 
     assert "actual" not in data_store.spec
 
@@ -175,7 +175,7 @@ def test_assert_bool_value_pass_false():
 
     data_store.spec["actual"] = False
 
-    core_steps.assert_bool_value()
+    core_steps.assert_bool_value("False")
 
     assert "actual" not in data_store.spec
 
@@ -183,10 +183,10 @@ def test_assert_bool_value_pass_false():
 def test_assert_bool_value_fail():
     from getgauge.python import data_store
 
-    data_store.spec["actual"] = "not a bool"
+    data_store.spec["actual"] = True
 
     with pytest.raises(AssertionError):
-        core_steps.assert_bool_value()
+        core_steps.assert_bool_value("False")
 
     assert "actual" not in data_store.spec
 
