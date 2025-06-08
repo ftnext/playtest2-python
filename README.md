@@ -9,6 +9,7 @@
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Development](#development)
 - [License](#license)
 
 ## Installation
@@ -71,6 +72,22 @@ On activating the virtual environment for Gauge, run `gauge` command in your E2E
 * レスポンスのボディが
 * JSONのパス"$.message"に対応する値が
 * 文字列の"Hello World"である
+```
+
+## Development
+
+Prerequisites: **Hatch** ([Installation](https://hatch.pypa.io/latest/install/))
+
+### Lint
+
+```bash
+hatch fmt
+```
+
+### Test
+
+```bash
+hatch test --randomize --doctest-modules
 ```
 
 ## License
