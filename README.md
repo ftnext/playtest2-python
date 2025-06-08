@@ -81,7 +81,7 @@ Prerequisites: **Hatch** ([Installation](https://hatch.pypa.io/latest/install/))
 ### Lint
 
 ```bash
-hatch fmt
+hatch fmt && hatch run types:check
 ```
 
 ### Test
