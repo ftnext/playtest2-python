@@ -259,3 +259,30 @@ def test_assert_table_pass():
     )
 
     assert "actual" not in data_store.spec
+
+
+def test_assert_table_fail():
+    from getgauge.python import data_store
+
+    data_store.spec["actual"] = Table(
+        ProtoTable(
+            {
+                "headers": {"cells": ["Word", "Vowel Count"]},
+                "rows": [{"cells": ["Gauge", "3"]}, {"cells": ["Playtest2", "2"]}],
+            }
+        )
+    )
+
+    with pytest.raises(AssertionError):
+        core_steps.assert_table(
+            Table(
+                ProtoTable(
+                    {
+                        "headers": {"cells": ["Word", "Vowel Count"]},
+                        "rows": [{"cells": ["Gauge", "3"]}, {"cells": ["Playtest2", "4"]}],
+                    }
+                )
+            )
+        )
+
+    assert "actual" not in data_store.spec
