@@ -69,5 +69,5 @@ def assert_regex_fullmatch(expected: str):
 
 @step("テーブル<expected>である")
 def assert_table(expected: Table):
-    actual = data_store.spec["actual"]
+    actual = data_store.spec.pop("actual")
     assert actual == expected, f"Expected {expected} but got {actual}"  # noqa: S101

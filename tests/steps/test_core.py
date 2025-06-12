@@ -1,5 +1,7 @@
 import pytest
+from getgauge.python import Table
 
+from playtest2.gauge_table import ProtoTable
 from playtest2.steps import core as core_steps
 
 
@@ -231,5 +233,29 @@ def test_assert_regex_fullmatch_fail(actual_value):
 
     with pytest.raises(AssertionError):
         core_steps.assert_regex_fullmatch("ab*")
+
+
+def test_assert_table_pass():
+    from getgauge.python import data_store
+
+    data_store.spec["actual"] = Table(
+        ProtoTable(
+            {
+                "headers": {"cells": ["Word", "Vowel Count"]},
+                "rows": [{"cells": ["Gauge", "3"]}, {"cells": ["Playtest2", "2"]}],
+            }
+        )
+    )
+
+    core_steps.assert_table(
+        Table(
+            ProtoTable(
+                {
+                    "headers": {"cells": ["Word", "Vowel Count"]},
+                    "rows": [{"cells": ["Gauge", "3"]}, {"cells": ["Playtest2", "2"]}],
+                }
+            )
+        )
+    )
 
     assert "actual" not in data_store.spec
