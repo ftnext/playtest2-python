@@ -1,6 +1,6 @@
 import re
 
-from getgauge.python import data_store, step
+from getgauge.python import Table, data_store, step
 
 
 @step("文字列の<expected>である")
@@ -65,3 +65,9 @@ def assert_null_value():
 def assert_regex_fullmatch(expected: str):
     actual = data_store.spec.pop("actual")
     assert re.fullmatch(expected, actual), f"Expected {actual!r} to fully match regex {expected!r}"  # noqa: S101
+
+
+@step("テーブル<expected>である")
+def assert_table(expected: Table):
+    actual = data_store.spec["actual"]
+    assert actual == expected, f"Expected {expected} but got {actual}"  # noqa: S101
