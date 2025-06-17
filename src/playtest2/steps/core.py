@@ -1,3 +1,5 @@
+import re
+
 from getgauge.python import data_store, step
 
 
@@ -57,3 +59,11 @@ def assert_bool_value(expected: str):
 def assert_null_value():
     actual = data_store.spec.pop("actual")
     assert actual is None, f"Expected None but got {actual!r}"  # noqa: S101
+
+
+@step("正規表現の<expected>に完全一致している")
+def assert_regex_fullmatch(expected: str):
+    actual = data_store.spec.pop("actual")
+    if not re.fullmatch(expected, actual):
+        msg = f"Expected {actual!r} to fully match regex {expected!r}"
+        raise AssertionError(msg)
