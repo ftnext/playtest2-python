@@ -64,6 +64,4 @@ def assert_null_value():
 @step("正規表現の<expected>に完全一致している")
 def assert_regex_fullmatch(expected: str):
     actual = data_store.spec.pop("actual")
-    if not re.fullmatch(expected, actual):
-        msg = f"Expected {actual!r} to fully match regex {expected!r}"
-        raise AssertionError(msg)
+    assert re.fullmatch(expected, actual), f"Expected {actual!r} to fully match regex {expected!r}"  # noqa: S101
