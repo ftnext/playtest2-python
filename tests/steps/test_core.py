@@ -210,3 +210,26 @@ def test_assert_null_value_fail():
         core_steps.assert_null_value()
 
     assert "actual" not in data_store.spec
+
+
+@pytest.mark.parametrize("actual_value", ["a", "ab", "abb"])
+def test_assert_regex_fullmatch_pass(actual_value):
+    from getgauge.python import data_store
+
+    data_store.spec["actual"] = actual_value
+
+    core_steps.assert_regex_fullmatch("ab*")
+
+    assert "actual" not in data_store.spec
+
+
+@pytest.mark.parametrize("actual_value", ["ba", "abc"])
+def test_assert_regex_fullmatch_fail(actual_value):
+    from getgauge.python import data_store
+
+    data_store.spec["actual"] = actual_value
+
+    with pytest.raises(AssertionError):
+        core_steps.assert_regex_fullmatch("ab*")
+
+    assert "actual" not in data_store.spec
