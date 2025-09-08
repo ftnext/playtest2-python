@@ -20,8 +20,9 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-      - name: Install Gauge
-        run: curl -Ssl https://downloads.gauge.org/stable | sh
+      - uses: getgauge/setup-gauge@master
+        with:
+          gauge-plugins: python
       - name: Debug information
         run: |
           which python
