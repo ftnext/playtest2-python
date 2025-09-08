@@ -23,7 +23,9 @@ jobs:
       - name: Install Gauge
         run: curl -Ssl https://downloads.gauge.org/stable | sh
       - name: Install playtest2
-        run: python -m pip install .
+        run: |
+          python -m site
+          python -m pip install .
       - name: Run validation
         run: |
           cd example
