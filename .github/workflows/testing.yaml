@@ -23,13 +23,18 @@ jobs:
       - uses: getgauge/setup-gauge@master
         with:
           gauge-plugins: python
+      - name: Install playtest2
+        run: |
+          python -m venv .venv --upgrade-deps
+          source .venv/bin/activate
+          python -m pip install .
       - name: Debug information
         run: |
+          source .venv/bin/activate
           which python
           python -m site
-      - name: Install playtest2
-        run: python -m pip install .
       - name: Run validation
         run: |
+          source .venv/bin/activate
           cd example
           gauge validate specs
