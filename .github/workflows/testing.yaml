@@ -22,10 +22,12 @@ jobs:
           python-version: '3.12'
       - name: Install Gauge
         run: curl -Ssl https://downloads.gauge.org/stable | sh
-      - name: Install playtest2
+      - name: Debug information
         run: |
+          which python
           python -m site
-          python -m pip install .
+      - name: Install playtest2
+        run: python -m pip install .
       - name: Run validation
         run: |
           cd example
