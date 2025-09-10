@@ -39,7 +39,7 @@ $ source .venv/bin/activate
 
 ### Gauge Configuration
 
-Edit `python.properties` in `env/default/`.
+Edit `python.properties` in `env/default/` (Or run experimental command `playtest2 setup`).
 
 ```
 STEP_IMPL_DIR = /**absolute**/path/of/gauge-project/.venv/lib/python3.x/site-packages/playtest2
