@@ -33,6 +33,9 @@ Documentation = "https://github.com/ftnext/playtest2-python#readme"
 Issues = "https://github.com/ftnext/playtest2-python/issues"
 Source = "https://github.com/ftnext/playtest2-python"
 
+[project.scripts]
+playtest2 = "playtest2.cli:main"
+
 [tool.hatch.version]
 path = "src/playtest2/__about__.py"
 
