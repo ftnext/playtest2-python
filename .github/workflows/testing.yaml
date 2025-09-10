@@ -28,6 +28,8 @@ jobs:
           python -m venv .venv --upgrade-deps
           source .venv/bin/activate
           python -m pip install .
+          cd example
+          playtest2 setup
       - name: Debug information
         run: |
           source .venv/bin/activate
