@@ -35,6 +35,7 @@ jobs:
           source .venv/bin/activate
           which python
           python -m site
+          cat example/env/default/python.properties
       - name: Run validation
         run: |
           source .venv/bin/activate
