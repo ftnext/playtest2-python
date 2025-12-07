@@ -29,7 +29,7 @@ jobs:
           source .venv/bin/activate
           python -m pip install .
           cd example
-          playtest2 setup
+          playtest2 setup step_impl
       - name: Debug information
         run: |
           source .venv/bin/activate
@@ -41,3 +41,11 @@ jobs:
           source .venv/bin/activate
           cd example
           gauge validate specs
+      - name: Run example spec
+        run: |
+          source .venv/bin/activate
+          cd example
+          python -m pip install fastapi[standard]
+          gauge run specs
+        env:
+          SUT_BASE_URL: http://127.0.0.1:8000
