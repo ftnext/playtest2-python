@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: pypa/hatch@install
       - name: Run tests
-        run: hatch test --randomize --all -vv --doctest-modules
+        run: hatch test --randomize --all -vv --doctest-modules --ignore example
   
   examples-test:
     runs-on: ubuntu-latest
