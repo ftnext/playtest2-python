@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 
-def setup(args):
+def setup(args) -> None:
     python_properties_dir = Path.cwd() / "env" / "default"
     python_properties_dir.mkdir(parents=True, exist_ok=True)
 
@@ -25,7 +25,7 @@ STEP_IMPL_DIR = {",".join(step_impl_dirs)}"""
     )
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command", required=True)
 
