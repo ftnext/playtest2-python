@@ -18,18 +18,9 @@
 
 * [Gauge](https://docs.gauge.org/getting_started/installing-gauge)
 
-### Setting up Gauge with playtest2
+### Install playtest2
 
-1. Create a new dedicated virtual environment for Gauge in a **separate** directory from your E2E test project:
-
-```console
-$ mkdir /path/to/gauge-project  # Specify your own path here
-$ cd /path/to/gauge-project
-$ python -m venv .venv --upgrade-deps
-$ source .venv/bin/activate
-```
-
-2. Install playtest2 in the virtual environment:
+Install playtest2 in the virtual environment of your E2E test project:
 
 ```console
 (.venv) $ python -m pip install playtest2
@@ -39,22 +30,30 @@ $ source .venv/bin/activate
 
 ### Gauge Configuration
 
-Edit `python.properties` in `env/default/` (Or run experimental command `playtest2 setup`).
+1) Run `playtest2 setup` to automatically create `python.properties` in `env/default/`.
 
-```
-STEP_IMPL_DIR = /**absolute**/path/of/gauge-project/.venv/lib/python3.x/site-packages/playtest2
+```console
+(.venv) $ playtest2 setup
+
+# If you have own step implementation directories
+(.venv) $ playtest2 setup your_step_impl1 your_step_impl2
 ```
 
-Create `playtest2.properties` in `env/default/`.
+> [!TIP]
+> Generated env/default/python.properties example
+> ```
+> STEP_IMPL_DIR = /**absolute**/path/of/your-project/.venv/lib/python3.x/site-packages/playtest2,your_step_impl1,your_step_impl2
+> ```
+
+2) Create `playtest2.properties` in `env/default/`.
 
 ```
 SUT_BASE_URL = http://127.0.0.1:8000
 ```
 
-On activating the virtual environment for Gauge, run `gauge` command in your E2E test project:
+Run `gauge` command in your E2E test project:
 
 ```console
-(.venv) $ cd /path/to/e2e/project
 (.venv) $ gauge run specs
 ```
 
