@@ -28,8 +28,12 @@ jobs:
           python -m venv .venv --upgrade-deps
           source .venv/bin/activate
           python -m pip install .
+      - name: Setup
+        run: |
+          source .venv/bin/activate
           cd example
           playtest2 setup step_impl
+          echo 'SUT_BASE_URL = http://127.0.0.1:8000' > env/default/user.properties
       - name: Debug information
         run: |
           source .venv/bin/activate
@@ -47,5 +51,3 @@ jobs:
           cd example
           python -m pip install fastapi[standard]
           gauge run specs
-        env:
-          SUT_BASE_URL: http://127.0.0.1:8000
