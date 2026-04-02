@@ -35,6 +35,14 @@ $ source .venv/bin/activate
 (.venv) $ python -m pip install playtest2
 ```
 
+**Alternative**: If you use [uv](https://docs.astral.sh/uv/) (or [pipx](https://pipx.pypa.io/)), you can install playtest2 as a tool:
+
+```console
+$ uv tool install playtest2
+```
+
+This installs playtest2 in an isolated environment managed by uv, so you don't need to create a separate virtual environment.
+
 ## Usage
 
 ### Gauge Configuration
