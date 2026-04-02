@@ -18,9 +18,18 @@
 
 * [Gauge](https://docs.gauge.org/getting_started/installing-gauge)
 
-### Install playtest2
+### Setting up Gauge with playtest2
 
-Install playtest2 in the virtual environment of your E2E test project:
+1. Create a new dedicated virtual environment for Gauge in a **separate** directory from your E2E test project:
+
+```console
+$ mkdir /path/to/gauge-project  # Specify your own path here
+$ cd /path/to/gauge-project
+$ python -m venv .venv --upgrade-deps
+$ source .venv/bin/activate
+```
+
+2. Install playtest2 in the virtual environment:
 
 ```console
 (.venv) $ python -m pip install playtest2
